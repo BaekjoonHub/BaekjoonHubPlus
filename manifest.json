@@ -1,0 +1,57 @@
+{
+    "manifest_version": 3,
+    "name": "백준허브플러스(BaekjoonHubPlus)",
+    "description": "Automatically integrate your Algorithm submissions to GitHub",
+    "homepage_url": "https://github.com/BaekjoonHub/BaekjoonHubPlus",
+    "version": "0.0.0.1",
+    "author": "BaekjoonHubPlus",
+    "action": {
+      "default_icon": "images/icon.png",
+      "default_popup": "popup.html"
+    },
+    "icons": {
+      "16": "images/icon.png",
+      "48": "images/icon.png",
+      "128": "images/icon.png"
+    },
+    "background": {
+      "service_worker": "js/background.js"
+    },
+    "permissions": [
+      "unlimitedStorage",
+      "storage"
+    ],
+    "host_permissions": [
+      "https://github.com/"
+    ],
+    "web_accessible_resources":[
+      {
+        "matches": ["<all_urls>"],
+        "resources": [
+          "lib/jquery-3.6.0.min.js",
+          "lib/arrive.min.js",
+          "lib/bootstrap.min.css",
+          "lib/senil.webpack.js",
+          "js/storage.js",
+          "js/utils.js",
+          "html/popup.html",
+          "js/popup.js",
+          "html/settings.html",
+          "js/settings.js"
+        ]
+      }
+    ],
+    "content_scripts": [
+      {
+        "matches": [
+          "https://github.com/*"
+        ],
+        "js": [
+          "js/util.js",
+          "js/Github.js",
+          "js/authorize.js"
+        ],
+        "run_at": "document_idle"
+      }
+    ]
+  }

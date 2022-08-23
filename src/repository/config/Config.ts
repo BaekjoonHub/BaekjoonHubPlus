@@ -40,4 +40,18 @@ export default class Config {
 const INIT_SETTINGS = {
   debug: false,
   token: null,
-};
+  hook: null,
+  templates: {
+    directory: '백준/${level.replace(/ .*/, "")}/${problemId}. ${convertSingleCharToDoubleChar(title)}',
+    fileName: '${convertSingleCharToDoubleChar(title)}.${languages[language]}',
+    message: '[${level}] Title: ${title}, Time: ${runtime} ms, Memory: ${memory} KB -BaekjoonHubPlus',
+    readme: '# [${level}] ${title} - ${problemId} \n\n \
+              [문제 링크](https://www.acmicpc.net/problem/${problemId}) \n\n \
+              ### 성능 요약\n\n \
+              메모리: ${memory} KB, \
+              시간: ${runtime} ms\n\n \
+              ### 분류\n\n \
+              ${category || "Empty"}\n\n \
+              > ${endnotes}',
+  },
+} as const;

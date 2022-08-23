@@ -228,11 +228,11 @@ function addStyle(css: string) {
   return style;
 }
 
-function addStyleFromFile(css: string){
+function addStyleFromFile(css: string) {
   const topCss = chrome.runtime.getURL(css);
-  const topCssLink = document.createElement("link");
-  topCssLink.setAttribute("rel", "stylesheet");
-  topCssLink.setAttribute("href", topCss);
+  const topCssLink = document.createElement('link');
+  topCssLink.setAttribute('rel', 'stylesheet');
+  topCssLink.setAttribute('href', topCss);
   return document.head.appendChild(topCssLink);
 }
 

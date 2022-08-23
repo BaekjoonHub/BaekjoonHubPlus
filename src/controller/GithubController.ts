@@ -1,5 +1,5 @@
-import { singleton } from 'tsyringe';
+import { Lifecycle, scoped, singleton } from 'tsyringe';
 import IController from '../interface/IController';
 
-@singleton()
+@scoped(Lifecycle.ContainerScoped)
 export default class GithubController implements IController {}

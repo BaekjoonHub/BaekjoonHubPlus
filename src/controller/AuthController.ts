@@ -14,7 +14,7 @@ export default class AuthController implements IController {
   }
 
   private parseToken(text: string): string {
-    return text.split('access_token=')[-1].replace(/&.*/, '');
+    return text.split('access_token=')[1]?.replace(/&.*/, '');
   }
 
   private fetchToken(code: string): Promise<string> {
@@ -23,7 +23,7 @@ export default class AuthController implements IController {
     data.append('client_secret', CONSTANT.GITHUB_AUTH_APP.CLIENT_SECRET);
     data.append('code', code);
 
-    return fetch(CONSTANT.GITHUB_AUTH_APP.ACCESS_TOKEN_URL, { method: 'POST', body: data })
+    return fetch(CONSTANT.GITHUB_AUTH_APP.ACCESS_TOKEN_URL, { method: 'POST', mode: 'no-cors', body: data })
       .then((res) => res.text())
       .then((text) => this.parseToken(text));
   }

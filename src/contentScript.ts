@@ -2,8 +2,9 @@ import 'reflect-metadata';
 import IFactory from './interface/pattern/IFactory';
 import IService from './interface/IService';
 import DispatcherService from './dispatcher/DispatcherService';
-import { autoInjectable } from 'tsyringe';
+import { autoInjectable, container, Lifecycle, scoped } from 'tsyringe';
 
+@scoped(Lifecycle.ContainerScoped)
 @autoInjectable()
 class ContentScript {
   factory?: IFactory;
@@ -17,4 +18,4 @@ class ContentScript {
 }
 
 // run the script
-new ContentScript().init(window.location.href);
+container.resolve(ContentScript).init(document.location.href);

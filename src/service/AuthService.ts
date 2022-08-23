@@ -22,6 +22,6 @@ export default class AuthService implements IService {
   }
 
   private parseCode(url: string): string {
-    return url.split('code=')[-1];
+    return url.split('code=')[1];
   }
 }

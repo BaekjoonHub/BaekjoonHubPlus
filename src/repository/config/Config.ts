@@ -11,8 +11,7 @@ export default class Config {
 
   public static async loadSettings(): Promise<{ [key: string]: any }> {
     this.settings = await Storage.get('settings');
-    this.settings = { ...INIT_SETTINGS, ...this.settings };
-    return this.settings;
+    return (this.settings = { ...INIT_SETTINGS, ...this.settings });
   }
 
   public static async saveSettings(): Promise<void> {
@@ -28,22 +27,25 @@ export default class Config {
     return this.settings[key];
   }
 
-  // public static bind() {
-  //   Storage.addListener((key, newValue, oldValue) => {
-  //     if (key === 'settings') {
-  //       this.settings = newValue;
-  //     }
-  //   });
-  // }
+  public static bind(callback: (newValue: any, oldValue: any) => void) {
+    Storage.addListener((key, newValue, oldValue) => {
+      if (key === 'settings') {
+        this.settings = newValue;
+        callback(newValue, oldValue);
+      }
+    });
+  }
 }
 
 const INIT_SETTINGS = {
+  use: true,
+  paid: false,
   debug: false,
   token: null,
   hook: null,
   templates: {
-    directory: '백준/${level.replace(/ .*/, "")}/${problemId}. ${convertSingleCharToDoubleChar(title)}',
-    fileName: '${convertSingleCharToDoubleChar(title)}.${languages[language]}',
+    directory: '${division || "백준"}/${level.replace(/ .*/, "")}/${problemId}. ${convertSingleCharToDoubleChar(title)}',
+    fileName: '${convertSingleCharToDoubleChar(title)}.${languages[language] | ext}',
     message: '[${level}] Title: ${title}, Time: ${runtime} ms, Memory: ${memory} KB -BaekjoonHubPlus',
     readme: '# [${level}] ${title} - ${problemId} \n\n \
               [문제 링크](https://www.acmicpc.net/problem/${problemId}) \n\n \

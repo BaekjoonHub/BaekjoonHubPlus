@@ -3,7 +3,7 @@ export class Storage {
     return getObjectFromLocalStorage(key);
   }
   public static async set(key: string, value: any): Promise<void> {
-    return saveObjectInLocalStorage({ key, value });
+    return saveObjectInLocalStorage({ [key]: value });
   }
   public static async remove(key: string): Promise<void> {
     return removeObjectFromLocalStorage(key);
